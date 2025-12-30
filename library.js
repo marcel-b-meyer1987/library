@@ -1,5 +1,7 @@
 "use strict";
 
+const myLibrary = [];
+
 function Book(title, author, pages, read) {
 
     this.title = title;
@@ -15,3 +17,10 @@ function Book(title, author, pages, read) {
         }
     };
 }
+
+function addBookToLibrary(title, author, pages) {
+    const book = new Book(title, author, pages, false);
+    book.ID = crypto.randomUUID();
+    myLibrary.push(book);
+}
+
