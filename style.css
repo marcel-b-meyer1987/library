@@ -137,7 +137,12 @@ button:hover {
     grid-area: details;
     padding: 2rem;
     background-color: var(--lightbrown);
+    border: none;
     border-radius: 18px;
+    position: absolute;
+    top: calc(50% + calc(height / 2));
+    margin: auto;
+    z-index: 1;
 }
 
 #details:not([open]) {
