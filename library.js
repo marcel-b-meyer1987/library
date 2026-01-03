@@ -63,7 +63,7 @@ function displayLibrary() {
     // <ul id="book-list">
     //     <li data-id="xxx-xxx-xxx-xxx">
     //         <span class="info">Title (Author)</span>
-    //         <img src="./img/check.svg" alt="Mark as read" class="icon-button check-button">
+    //         <img src="./img/check.svg" alt="Mark as read" class="icon-button check-button not-read">
     //         <img src="./img/remove.svg" alt="Remove" class="icon-button remove-button">
     //     </li>
     // </ul>
@@ -73,14 +73,24 @@ function displayLibrary() {
     }
 
     let displayHTML = "";
+    let bookHTML = "";
 
     for(const book of myLibrary) {
-        let bookHTML = 
-        `<li data-id="${book.ID}">
-            <span class="info">${book.title} (${book.author})</span>
-            <img src="./img/check.svg" alt="Mark as read" class="icon-button check-button">
-            <img src="./img/remove.svg" alt="Remove" class="icon-button remove-button">
-        </li>`;
+        if (book.read) {
+            bookHTML = 
+            `<li data-id="${book.ID}">
+                <span class="info">${book.title} (${book.author})</span>
+                <img src="./img/check.svg" alt="Mark as read" class="icon-button check-button">
+                <img src="./img/remove.svg" alt="Remove" class="icon-button remove-button">
+            </li>`;    
+        } else {
+            bookHTML = 
+            `<li data-id="${book.ID}">
+                <span class="info">${book.title} (${book.author})</span>
+                <img src="./img/check.svg" alt="Mark as read" class="icon-button check-button not-read">
+                <img src="./img/remove.svg" alt="Remove" class="icon-button remove-button">
+            </li>`;
+        }        
 
         displayHTML += bookHTML;
     }
@@ -93,10 +103,15 @@ function displayLibrary() {
     let liElements = Array.from(display.querySelectorAll("li"));
     liElements.forEach((li) => {
         const info = li.querySelector("span.info");
+        const checkBtn = li.querySelector("img.check-button");
         const removeBtn = li.querySelector("img.remove-button");
 
         info.addEventListener("click", (e) => {
             showBookDetails(li.dataset["id"]);      //TESTED OK
+        });
+
+        checkBtn.addEventListener("click", (e) => {
+            toggleReadStatus(li.dataset["id"], e.target);
         });
 
         removeBtn.addEventListener("click", (e) => {
@@ -113,6 +128,20 @@ function showBookDetails(bookID) {
     titleDisplay.value = book.title || "";
     authorDisplay.value = book.author || "";
     pagesDisplay.value = book.pages || "";
+}
+
+//TESTED OK
+function toggleReadStatus(bookID, button) {
+    const book = myLibrary.filter(book => book.ID === bookID)[0];
+    if (! book.read) {
+        book.read = true;
+        button.classList.remove("not-read");
+        saveLibrary();
+    } else {
+        book.read = false;
+        button.classList.add("not-read");
+        saveLibrary();
+    }
 }
 
 //TESTED OK
@@ -141,8 +170,4 @@ function removeBookFromLibrary(bookID) {
     saveLibrary();
     displayLibrary();
 }
-
-
-// MAIN SECTION BELOW HERE:
-
     
