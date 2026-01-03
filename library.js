@@ -1,3 +1,4 @@
+    const detailsDisplay = document.querySelector("dialog#details");
     const addBtnTop = document.querySelector("#add-button-top");
     const addBtnBottom = document.getElementById("add-button-bottom");
     const titleDisplay = document.querySelector("form #title");
@@ -128,6 +129,8 @@ function showBookDetails(bookID) {
     titleDisplay.value = book.title || "";
     authorDisplay.value = book.author || "";
     pagesDisplay.value = book.pages || "";
+
+    detailsDisplay.showModal();
 }
 
 //TESTED OK
@@ -149,6 +152,7 @@ function createNewBook() {
     titleDisplay.value = "";
     authorDisplay.value = "";
     pagesDisplay.value = "";
+    detailsDisplay.showModal();
     titleDisplay.focus();
 }
 
@@ -161,6 +165,7 @@ function addBookToLibrary(title, author, pages, library) {
     saveLibrary();
     console.log("Saved library.");
     displayLibrary();
+    detailsDisplay.close();
 }
 
 //TESTED OK

@@ -140,8 +140,13 @@ button:hover {
     border-radius: 18px;
 }
 
+#details:not([open]) {
+    display: none;
+}
+
 #details form {
     margin-top: 1rem;
+    font-weight: 600;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -205,6 +210,35 @@ footer div {
 
 footer div:first-child {
     box-shadow: 0px -15px 120px 65px rgba(216, 121, 63, 1);
+}
+
+@media(max-width: 500px) {
+
+    #details form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: auto;
+    gap: 10px;
+    }
+
+    #details form > div {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 1fr;
+        
+    }
+
+        /*
+    #details > form label {
+        grid-column: 1 span 1;
+    }
+
+    #details > form input {
+        grid-column: 2 span 1; */
+    }
+
 }
 
 /* 
