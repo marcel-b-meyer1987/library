@@ -5,6 +5,26 @@
     const authorDisplay = document.querySelector("form #author");
     const pagesDisplay = document.querySelector("form #pages");
 
+
+class Book {
+
+    constructor(title, author, pages, read, ID) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read || false;
+        this.ID = ID;
+    };
+
+    info = () => {
+        if (this.read === false) {
+            return `${title} by ${author}, ${pages} pages, not read yet.`;
+        } else {
+            return `${title} by ${author}, ${pages} pages, already read.`;
+        }
+    };
+}
+
     let myLibrary = loadLibrary() || [];
     displayLibrary();
 
@@ -17,22 +37,6 @@
     });
 
 
-function Book(title, author, pages, read, ID) {
-
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read || false;
-    this.ID = ID;
-
-    this.info = function() {
-        if (this.read === false) {
-            return `${title} by ${author}, ${pages} pages, not read yet.`;
-        } else {
-            return `${title} by ${author}, ${pages} pages, already read.`;
-        }
-    };
-}
 
 function loadLibrary() {
     let library = [];
@@ -157,7 +161,7 @@ function createNewBook() {
 }
 
 //TESTED OK
-function addBookToLibrary(title, author, pages, library) {
+function addBookToLibrary(title, author, pages) {
     let newBook = new Book(title, author, pages, false, crypto.randomUUID());
     console.log(`New Book ${newBook} created.`);
     myLibrary.push(newBook);
@@ -176,3 +180,4 @@ function removeBookFromLibrary(bookID) {
     displayLibrary();
 }
     
+// DIETER
